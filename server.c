@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
   config_t cfg;
   config_setting_t *setting;
   const char *cmd = "";
-  int port;
+  long int port;
 
   char *config_file_name = "server.cfg";
 
@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
 
   if (config_lookup_int(&cfg, "port", &port))
   {
-    printf("\nPort to run server on: %d", port);
+    printf("\nPort to run server on: %lu", port);
   } else {
-
+    port = 6004;
   }
 
   if (config_lookup_string(&cfg, "cmd", &cmd))

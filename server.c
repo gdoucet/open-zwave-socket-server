@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
   char *config_file_name = "server.cfg";
 
-  /*Initialization */
+  /* Initialization */
   config_init(&cfg);
 
   /* Read the file. If there is an error, report it and exit. */

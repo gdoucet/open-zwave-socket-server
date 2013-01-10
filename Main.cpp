@@ -239,7 +239,6 @@ void OnNotification(Notification const* _notification, void* _context) {
  for each connection.  It handles all communication
  once a connnection has been established.
  *****************************************/
-
 void split(const string& s, char c, vector<string>& v) {
     string::size_type i = 0;
     string::size_type j = s.find(c);
@@ -263,14 +262,14 @@ string trim(string s) {
 int main(int argc, char* argv[])
 {
     config_t cfg;
-    const char *usb;
-    const char *ozwconfigs;
-    const char *cmd;
-    long int port;
+    const char *usb = "/dev/ttyUSB0";
+    const char *ozwconfigs = "../open-zwave/config/";
+    const char *cmd = "";
+    long int port = 6004;
     
     const char *config_file_name = "server.cfg";
     
-    pthread_mutexattr_t mutexattr;
+    /*pthread_mutexattr_t mutexattr;
     
     pthread_mutexattr_init(&mutexattr);
     pthread_mutexattr_settype(&mutexattr, PTHREAD_MUTEX_RECURSIVE);
@@ -278,6 +277,10 @@ int main(int argc, char* argv[])
     pthread_mutexattr_destroy(&mutexattr);
     
     pthread_mutex_lock(&initMutex);
+    */
+    
+    /* Initialization */
+    config_init(&cfg);
     
     /* Read the file. If there is an error, report it and exit. */
     if (!config_read_file(&cfg, config_file_name)) {
@@ -312,8 +315,7 @@ int main(int argc, char* argv[])
     
     printf("\n");
     
-    /* Initialization */
-    config_init(&cfg);
+    
     
     // Create the OpenZWave Manager.
     // The first argument is the path to the config files (where the manufacturer_specific.xml file is located
@@ -345,20 +347,12 @@ int main(int argc, char* argv[])
         
         Driver::DriverData data;
         Manager::Get()->GetDriverStatistics(g_homeId, &data);
-        
-       /* printf("SOF: %d ACK Waiting: %d Read Aborts: %d Bad Checksums: %d\n", data.s_SOFCnt, data.s_ACKWaiting, data.s_readAborts, data.s_badChecksum);
-        printf("Reads: %d Writes: %d CAN: %d NAK: %d ACK: %d Out of Frame: %d\n", data.s_readCnt, data.s_writeCnt, data.s_CANCnt, data.s_NAKCnt, data.s_ACKCnt, data.s_OOFCnt);
-        printf("Dropped: %d Retries: %d\n", data.s_dropped, data.s_retries);
-        
-        printf("***************************************************** \n");
-        printf("6004 ZWaveCommander Server \n");
-       */
+    
         //Manager::Get()->SetNodeName(g_homeId, 3, "Lampshade");
-        
-        
+
         try {
             // Create the socket
-            ServerSocket server(6004);
+            ServerSocket server(port);
             while (true) {
                 //pthread_mutex_lock(&g_criticalSection);
                 // Do stuff
@@ -521,6 +515,9 @@ int main(int argc, char* argv[])
     
     Manager::Destroy();
     
+    
     pthread_mutex_destroy(&g_criticalSection);
+    
+    config_destroy(&cfg);
     return 0;
 }

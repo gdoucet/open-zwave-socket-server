@@ -3,6 +3,13 @@ open zwave socket server
 
 This is a simple open zwave socket server allowing communication with the Zwave protocol. Also allowing for a command to be executed on events, in my specific case this is a PHP script hence the cli.php file as an example.
 
+
+Known Issues
+============
+
+The current Makefile does not include the socket files correctly, therefor until I work out how to make this work you will need to copy the contents of 'src' into the the open-zwave folder, 'cpp/src'.
+
+
 Building
 ========
 

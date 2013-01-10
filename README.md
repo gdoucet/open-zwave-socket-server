@@ -8,7 +8,7 @@ Building
 
 Only tested on ubuntu, but you will need the following packages:
 
-    sudo apt-get install build-essential g++ libconfig-dev
+    sudo apt-get install build-essential g++ libconfig-dev subversion
 
 Clone the project
 

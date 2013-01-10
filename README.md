@@ -8,7 +8,7 @@ Building
 
 Only tested on ubuntu, but you will need the following packages:
 
-    sudo apt-get install build-essential g++ libconfig-dev subversion
+    sudo apt-get install build-essential g++ libconfig-dev libudev-dev subversion
 
 Clone the project
 
@@ -16,7 +16,7 @@ Clone the project
 
 You will also need open-zwave in the parent folder
 
-    svn checkout http://open-zwave.googlecode.com/svn/trunk/ open-zwave-read-only open-zwave
+    svn checkout http://open-zwave.googlecode.com/svn/trunk/ open-zwave
 
 Simply use the Makefile included
 

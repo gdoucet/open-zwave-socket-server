@@ -1,13 +1,20 @@
 open zwave socket server
 ========================
 
-This is a simple open zwave socket server allowing communication with the Zwave protocol. Also allowing for a command to be executed on events, in my specific case this is a PHP script hence the cli.php file as an example.
+This is a simple open zwave socket server allowing communication with the Zwave protocol. It uses the protocol to use with the IOS/Android application Lightswitch.
+
+More about the protocol can be found here:
+http://forum.melloware.com/viewtopic.php?f=15&t=7977
 
 
 Known Issues
 ============
 
-The current Makefile does not include the socket files correctly, therefor until I work out how to make this work you will need to copy the contents of 'src' into the the open-zwave folder, 'cpp/src'.
+Only Binary Switch and Multilevel switch is supported. 
+It does not update the client with UPDATE command.
+
+Need to modify open-zwave/cpp/src/Defs.h RETRY_TIMEOUT from 40000 to 2000 (https://code.google.com/p/open-zwave/issues/detail?id=164) due to slow performance.
+
 
 
 Building
@@ -19,7 +26,7 @@ Only tested on ubuntu, but you will need the following packages:
 
 Clone the project
 
-    git clone git://github.com/x1nick/open-zwave-socket-server.git
+    git clone git://github.com/gdoucet/open-zwave-socket-server.git
 
 You will also need open-zwave in the parent folder
 
@@ -41,6 +48,9 @@ Acknowledgements
 ================
 
 Thanks goes out to the following developers for developing the initial part of this application
+
+phillipsnick
+	https://github.com/phillipsnick/open-zwave-socket-server
 
 tagroup (http://thomasloughlin.com)
 

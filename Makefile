@@ -37,11 +37,21 @@ all: open-zwave-server
 lib:
 	$(MAKE) -C ../open-zwave/cpp/build/linux
 
-open-zwave-server:	Main.o lib
-	$(LD) -o $@ $(LDFLAGS) $< $(LIBS) -lconfig -pthread -ludev
+ServerSocket.o: src/ServerSocket.cpp src/ServerSocket.h
+	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ src/ServerSocket.cpp
+
+
+Socket.o: src/Socket.cpp src/Socket.h src/SocketException.h
+	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ src/Socket.cpp
+
+md5.o: src/md5.cpp src/md5.h
+	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ src/md5.cpp
+
+open-zwave-server:	Main.o ServerSocket.o Socket.o md5.o
+	$(LD) -o $@ $(LDFLAGS) $< $(LIBS) ServerSocket.o Socket.o md5.o -lconfig -pthread -ludev
 
 clean:
-	rm -f open-zwave-server Main.o
+	rm -f open-zwave-server *.o
 
 XMLLINT := $(shell whereis -b xmllint | cut -c10-)
 

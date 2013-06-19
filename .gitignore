@@ -20,3 +20,8 @@
 .DS_Store
 ._*
 *.save
+
+open-zwave-server
+OZW_Log.txt
+zwcfg_*.xml
+zwscene.xml
